@@ -1,0 +1,22 @@
+//partial -> can be treated as a Factory
+function partial(fn, ...lockedArgs) {
+  console.log(`lockedArgs ${lockedArgs}`)
+  return function(...argsPassedOnEveryInvocation) {
+    console.log(`argsPassedOnEveryInvocation ${argsPassedOnEveryInvocation}`)
+    console.log(`fn => `)
+    console.log(`${fn}(${lockedArgs}, ${argsPassedOnEveryInvocation})`)
+    return fn(...lockedArgs, ...argsPassedOnEveryInvocation);
+  }
+}
+
+//A function that is passed to the factory function
+function raiseToPower(exponent, number) {
+  console.log(`exponent ${exponent}  number ${number}`)
+  return number**exponent;
+}
+
+let cubeIt = partial(raiseToPower, 3)
+console.log(cubeIt(9))
+
+let expTo10 = partial(raiseToPower, 10)
+console.log(expTo10(5)
